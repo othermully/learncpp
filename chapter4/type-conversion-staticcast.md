@@ -82,4 +82,24 @@ a has value 97
 ```
 
 ## Sign conversion using static_cast
+- Signed integral values can be converted to unsigned integral values, and vice-versa, using a static cast.
+
+- If the value being converted can be represented in the destination type, the converted value will remain unchanged(only the type will change). For example:
+
+```
+int main(){
+    unsigned int u1 { 5 };
+    // Convert value of u1 to a signed int
+    int s1 { static_cast<int>(u1) };
+    std::cout << s1 << '\n'; // prints 5
+
+    int s2 { 5 };
+    // Convert signed value of s2 to an unsigned int
+    unsigned int u2 { static_cast<unsigned int>(s2) };
+
+    std::cout << u2 << '\n'; // Prints 5
+
+    return 0;
+}
+```
 
