@@ -102,4 +102,30 @@ const int maxStudentsPerSchool{ numClassrooms * 30 }
 setMax(30);
 ```
 
-What do the literals `30` mean in these contexts?
+What do the literals `30` mean in these contexts? In the format, you can probably guess its the number of students per class, but it's not immediately obvious. In the latter, who knows. We'd have to go look at the function to know what it does.
+
+- Using magic numbers is generally considered bad practice, imagine if the schol buys new desks that allow them to raise the class size from 30 to 35, and our program needs to reflect that
+
+```
+const int maxStudentsPerClass { 30 };
+const int totalStudents{ numClassrooms * maxStudentsPerClass }; // Now obvious what this 30 means
+
+const int maxNameLength{ 30 };
+setMax(maxNameLength); // now obvious this 30 is used in a different context
+```
+
+- Magic numbers aren't always numbers -- they can also be text (e.g. names) or other types:
+
+```
+printAppWelcome("MyCalculator"); // bad: app name may be used in other places or change in the future
+```
+
+- Literals used in obvious contexts that are unlikely to change are typically not considered magic.
+
+```
+int idGenerator { 0 }; // okay: we're starting our id generator with value 0
+idGenerator = idGenerator + 1; // okay: we're just incrementing our generator
+```
+
+- Best practice: Avoid magic numbers in your code (use constexpr variables instead)
+
