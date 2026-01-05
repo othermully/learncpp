@@ -1,7 +1,7 @@
 # 5.4 - The as-if rule and compile-time optimization
 
 ## Intro to optimization
-- A profiler can measure how lonng various parts of the program are taking to run, allowing us to optimize the program by hand
+- A profiler can measure how long various parts of the program are taking to run, allowing us to optimize the program by hand
 
 - Other kinds of optimization can be performed automatically, a program that does this is called a **optimizer**. These typically work at a low-level looking for ways to improve statements or expressions by rewriting, reordering or eliminating them.
 
@@ -62,7 +62,7 @@ int x { 7 };
     - Literals
     - Constant objects whose intializers are compile-time constants
 
-- A **runetime constant** is a constant whose value is determined in a runtime context.
+- A **runtime constant** is a constant whose value is determined in a runtime context.
     - Constant function parameters
     - Constant objects whose initializers are non-constants or runtime constants
 

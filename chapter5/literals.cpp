@@ -21,6 +21,11 @@ int main(){
 
 	std::bitset<8> bin1 { 0b1100'0101 }; // binary literal for binary 1100 0101
 	std::cout << bin1 << '\n';
+
+	const int h{};
+	std::cout << "This should be zero?: " << h << '\n';
+	std::cout << "That is because value initialization intializes 'h' to 0"
+		  << '\n';
 	
 
 	return 0;
