@@ -91,3 +91,15 @@ There are two non-obvious things worth knowing about the C-style string literals
     - Because the hidden null terminator 
 
 Unlike most other literals (which are values, not objects), C-style string literals are const objects that are created at the start of the program and are guaranteed to exist for the entirety of the program.
+
+Unlike C-style string literals, `std::string` and `std::string_view` literals create temporary objects which must be used immediately, as they are destroyed at the end of the full expression in which they are created
+
+## Magic Numbers
+- A **magic number** is a literal (usually a number) that either has an unclear meaning or may need to be changed later.
+
+```
+const int maxStudentsPerSchool{ numClassrooms * 30 }
+setMax(30);
+```
+
+What do the literals `30` mean in these contexts?
