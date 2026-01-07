@@ -72,4 +72,7 @@ void inspect_string(std::string_view sv){
 	std::cout << "Any changes to the orignal, will invalidate the view." 
 	          << '\n';
 
+	constexpr std::string_view message { "This message is a constexpr string_view" };
+	std::cout << message << '\n';
+
 }

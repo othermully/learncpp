@@ -39,6 +39,7 @@ int main(){
 	std::cin >> user_selection;
 	std::cout << '\n';
 
+
 	// This if/else chain handles the users selection and calls the respective functions required to handle the task.
 	if (user_selection == 1)
 		inspect_integer(get_integer_input());
