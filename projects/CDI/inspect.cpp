@@ -3,7 +3,7 @@
 #include <iostream>
 
 void inspect_integer(int i){
-	std::cout << "Inspecting: " << i << '\n';
+	std::cout << "Inspecting signed int: " << i << '\n';
 
 	if (i > 0)
 		std::cout << i << " is a positive number" << '\n';
@@ -22,6 +22,7 @@ void inspect_integer(int i){
 	std::size_t int_size { sizeof(i) };
 	std::cout << "The size of " << i << " is " 
 		  << int_size << " bytes.\n";
+
 }
 
 void inspect_floating(double d){
