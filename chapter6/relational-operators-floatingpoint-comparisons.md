@@ -29,3 +29,23 @@ Comparing floating point values using any of the relational operators can be dan
 
 **TIP**
 It is safe to compare a floating point literal with a variable of the same type that has been initialized with a literal of the same type, so long as the number of significant digits in each literal does not exceed the minimum precision for that type.
+
+## Comparing floating point numbers
+
+The most common method of doing floating point equality involves using a function that looks to see if two numbers are equal. The valued used to represent "close enough" is traditionally called an **epsilon**. Epsilon is generally defined as a small positive number (e.g. 0.00000001, sometimes written 1e-8).
+
+New developers often try to write their own "close enough" functions like this:
+```
+// absEpsilon is an absolute value
+bool aproxEqualAbs(double a, double b, double absEpsilon){
+    // if the distance between a and b is less than or equal to absEpsilon, then a and b are "close enough"
+
+    return std::abs(a - b) <= absEpsilon;
+}
+```
+
+`std::abs()` is a function in the <cmath> header that returns the absolute value of its argument. So `std::abs(a - b) <= absEpsilon` checks if the distance between a and b is less than or equal to whatever epsilon value representing "close enough" was passed in. If a and b are close enough, the function returns true to indicate if they're equal. Otherwise, it returns false.
+
+While this function can work, its not great. An epsilon of 0.00001 is good for inputs around 1.0, too big for inputs around 0.0000001, and too small for inputs like 10,000.
+
+Comparison between floating point numbers is a difficult topic, and there's no "one size fits all" algorithm that works for every case. However, the approxEqualAbsRel() functiohn with an absEpsilon of 1e-12 and a relEpsilon of 1e-8 should be good enough to handle most cases you'll encounter.
