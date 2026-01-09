@@ -18,7 +18,7 @@ std::string_view getQuantityPhrase(int x){
 }; 
 
 std::string_view getApplesPluralized(int x){
-	return (x == 1) ? "apple" : "apples";
+	return ((x == 1) ? "apple" : "apples");
 }; 
 
 
