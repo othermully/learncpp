@@ -4,6 +4,10 @@
 #include <string>
 #include <string_view>
 
+constexpr double cm_per_foot  { 30.48 };
+constexpr double lbs_per_kg   { 2.20462 };
+constexpr double feet_per_m   { 3.281 };
+
 double get_height(){
 	std::cout << "Enter your height in feet (e.g. 5 7 = 5'7\": ";
 	int feet{};
@@ -40,29 +44,21 @@ std::string get_sex(){
 
 // Convert user input of lbs ot kg
 double convert_lbs_kg(double lbs){
-	double kg { lbs / 2.205 };
-	std::cout << lbs << "lbs => " << kg << "kg" << '\n';
-	return kg;
+	return lbs / lbs_per_kg;
 };
 
 // Convert user input of feet to cm
 double convert_feet_cm(double height_in_feet){
-	double cm { height_in_feet * 30.8 }; // 30.8 cm in 1ft
-	std::cout << height_in_feet << "ft => " << cm << "cm" << '\n';
-	return cm;
+	return height_in_feet * cm_per_foot;
 };
 
 double convert_feet_m(double height_in_feet){
-	double meters { height_in_feet / 3.281 };
-	std::cout << height_in_feet << "ft => " << meters << "m" << '\n';
-	return meters;
+	return height_in_feet / feet_per_m;
 };
 
 double calc_bmi(double kg, double height_in_m){
 	double meters_squared { height_in_m * height_in_m };
-	std::cout << "Height meters squared: " << meters_squared << '\n';
 	double bmi { kg / meters_squared };
-	std::cout << kg << " / " << meters_squared << " = " << bmi << '\n';
 	return bmi;
 }
 
@@ -72,7 +68,7 @@ double calc_bmr(double cm, double kg, std::string_view sex, int age){
 	// Mifflin-St Jeor Equation
 	if (sex == "Male")
 		bmr  = { (10 * kg) + (6.25 * cm) - (5 * age) + 5 };
-	if (sex == "Female")
+	else if (sex == "Female")
 		bmr  = { (10 * kg) + (6.25 * cm) - (5 * age) - 161 };
 	else
 		std::cout << "Unknown sex" << '\n';
@@ -96,9 +92,11 @@ int main(){
 	const std::string sex       { get_sex() };
 	const double height	    { get_height() };
 	const double weight	    { get_weight() };
-	const double bmr	    { calc_bmr(convert_feet_cm(height), convert_lbs_kg(weight),
-				               sex, age) };
-	const double bmi	    { calc_bmi(convert_lbs_kg(weight), convert_feet_m(height)) };
+	const double lbs_to_kg      { convert_lbs_kg(weight) };
+	const double feet_to_cm	    { convert_feet_cm(height) };
+	const double feet_to_m      { convert_feet_m(height) };
+	const double bmr	    { calc_bmr(feet_to_cm, lbs_to_kg, sex, age) };
+	const double bmi	    { calc_bmi(lbs_to_kg, feet_to_m) };
 
 	const std::string_view bmi_class { calc_bmi_class(bmi) };
 
@@ -110,10 +108,10 @@ int main(){
 
 	std::cout << '\n';
 	std::cout << "BMR: " << bmr << '\n';
-	std::cout << std::right << std::setw(15) << "Resting requirement: " << bmr * 1.2 << '\n';
-	std::cout << std::right << std::setw(15) << "Light activity requirement: " << bmr * 1.375 << '\n';
-	std::cout << std::right << std::setw(15) << "Moderate activity requirement: " << bmr * 1.55 << '\n';
-	std::cout << std::right << std::setw(15) << "Very active requirement: " << bmr * 1.725 << '\n';
+	std::cout << std::left << std::setw(15) << "Resting requirement: " << bmr * 1.2 << '\n';
+	std::cout << std::left << std::setw(15) << "Light activity requirement: " << bmr * 1.375 << '\n';
+	std::cout << std::left << std::setw(15) << "Moderate activity requirement: " << bmr * 1.55 << '\n';
+	std::cout << std::left << std::setw(15) << "Very active requirement: " << bmr * 1.725 << '\n';
 
 	std::cout << '\n';
 	std::cout << "BMI: " << bmi << '\n';
