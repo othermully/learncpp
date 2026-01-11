@@ -45,16 +45,16 @@ std::string get_sex(){
 // Convert user input of lbs ot kg
 double convert_lbs_kg(double lbs){
 	return lbs / lbs_per_kg;
-};
+}
 
 // Convert user input of feet to cm
 double convert_feet_cm(double height_in_feet){
 	return height_in_feet * cm_per_foot;
-};
+}
 
 double convert_feet_m(double height_in_feet){
 	return height_in_feet / feet_per_m;
-};
+}
 
 double calc_bmi(double kg, double height_in_m){
 	double meters_squared { height_in_m * height_in_m };
@@ -79,12 +79,11 @@ double calc_bmr(double cm, double kg, std::string_view sex, int age){
 std::string_view calc_bmi_class(double bmi){
 	if (bmi < 18.5)
 		return "Underweight";
-	if ((bmi <= 25.9) && (bmi >= 18.5))
+	if (bmi < 25.9) 
 		return "Normal Weight";
-	if ((bmi <= 29.9) && (bmi >= 25.0))
+	if (bmi < 29.9)
 		return "Overweight";
-	else
-		return "High risk of heart problems.";
+	return "High risk of heart problems";
 }
 
 int main(){
