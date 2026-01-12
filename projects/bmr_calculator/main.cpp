@@ -89,21 +89,21 @@ std::string_view calc_bmi_class(double bmi){
 int main(){
 	const int age		    { get_age() };
 	const std::string sex       { get_sex() };
-	const double height	    { get_height() };
-	const double weight	    { get_weight() };
-	const double lbs_to_kg      { convert_lbs_kg(weight) };
-	const double feet_to_cm	    { convert_feet_cm(height) };
-	const double feet_to_m      { convert_feet_m(height) };
-	const double bmr	    { calc_bmr(feet_to_cm, lbs_to_kg, sex, age) };
-	const double bmi	    { calc_bmi(lbs_to_kg, feet_to_m) };
+	const double height_ft	    { get_height() };
+	const double weight_lbs	    { get_weight() };
+	const double weight_kg      { convert_lbs_kg(weight_lbs) };
+	const double height_cm	    { convert_feet_cm(height_ft) };
+	const double height_m	    { convert_feet_m(height_ft) };
+	const double bmr	    { calc_bmr(height_cm, weight_kg, sex, age) };
+	const double bmi	    { calc_bmi(weight_kg, height_m) };
 
 	const std::string_view bmi_class { calc_bmi_class(bmi) };
 
 	std::cout << '\n';
 	std::cout << "Age: " << age << '\n';
 	std::cout << "Sex: " << sex  << '\n';
-	std::cout << "Height: " << height << "ft" << '\n';
-	std::cout << "Weight: " << weight << "lbs" << '\n';
+	std::cout << "Height: " << height_ft << "ft" << '\n';
+	std::cout << "Weight: " << weight_lbs << "lbs" << '\n';
 
 	std::cout << '\n';
 	std::cout << "BMR: " << bmr << '\n';
