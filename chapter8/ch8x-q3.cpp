@@ -1,9 +1,6 @@
 #include <random>
 #include <iostream>
 
-
-bool play_game(int);
-
 namespace rng {
 	// Seed PRNG using std::random_device
 	std::mt19937& engine() {
@@ -16,43 +13,54 @@ namespace rng {
 	}
 }
 
-void play_again(){
-	std::cout << "Would you like to play again (y/n)? ";
-	char c{};
-	std::cin >> c;
+void start_game(){
+	const int ran_num { rng::get(1, 100) };
+	std::cout << "Starting game... Guess a number between 1-100" << '\n';
 
-}
-
-bool play_game(int rd){
-	std::cout << "Let's play a game. Pick a number between 1-7, you have 7 tries" << '\n';
-	for (int n_guess{ 1 }; n_guess <= 7; ++n_guess){
-		std::cout << "Guess #" << n_guess << ':';
+	for (int n_guess{ 1 }; n_guess <= 7; ++n_guess){ // Loop through guesses
+		std::cout << "Guess #" << n_guess << ": ";
 		int guess{};
 		std::cin >> guess;
 
-		if (guess > rd){
-			std::cout << "You guess is too high." << '\n';
+		if (guess > ran_num){
+			std::cout << "Your guess is too high" << '\n';
 		}
-		if (guess < rd){
-			std::cout << "Your guess is too low." << '\n';
+		else if (guess < ran_num){
+			std::cout << "Your guess is too low" << '\n';
 		}
-		if (guess == rd){
+		else if (guess == ran_num){
 			std::cout << "Correct! You win!" << '\n';
-			return true;
+			return;
 		}
 	}
-	return true;
+	std::cout << "Sorry you lose. The correct number was " << ran_num << std::endl;
+	return;
+
+}
+
+bool play_again(){
+	while (true) { // Loop until the user selects y or n
+		std::cout << "Would you like to play again (y/n)? ";
+		char c{};
+		std::cin >> c;
+
+		switch (c) {
+			case 'y': return true;
+			case 'n': return false;
+		}
+	}
 }
 
 int main(){
-	int rd { rng::get(1, 7) };
+	// Ignore these for now
+	[[maybe_unused]] constexpr int n_guesses { 7 };
+	[[maybe_unused]] constexpr int max       { 100 };
+	[[maybe_unused]] constexpr int min       { 1 };
 
-	if (play_game(rd)){
-		play_again();
+	do {
+		start_game(); // Call this function first
 	}
-	// Start game
-	// Check user input
-	// If guesses > 7, you lose, ask to play again
-	// If number was correct, you win, ask to play again
+	while (play_again()); // Once start_game returns, this gets executed
+
 	return 0;
 }
