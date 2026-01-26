@@ -24,9 +24,9 @@ bool isLowerVowel(char c)
 int testVowel(){
 
 #ifndef NDEBUG
-	// if NDEBUG is defined, asserts are compiled out.
-	std::cerr << "Tests run with NDEBUG defined (asserts compiled out)";
-	std::abort();
+// if NDEBUG is defined, asserts are compiled out.
+std::cerr << "Tests run with NDEBUG defined (asserts compiled out)";
+std::abort();
 #endif
 
 	assert(isLowerVowel('a'));
