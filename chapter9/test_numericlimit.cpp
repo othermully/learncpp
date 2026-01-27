@@ -10,7 +10,6 @@ void printSizeAndLimits(){
 	std::cout << "Size of double: ";
 	std::cout << sizeof(double) << " bytes\n";
 
-
 	std::cout << '\n';
 	std::cout << "Numeric_limits on unsigned int: ";
 	std::cout << std::numeric_limits<unsigned int>::max();

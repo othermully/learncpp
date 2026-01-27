@@ -16,6 +16,41 @@ void ignoreLine(){
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
+[[maybe_unused]] double getDoubleV2(){
+	while (true) {
+		std::cout << "Enter a decimal number: ";
+		double x{};
+		std::cin >> x;
+
+		// NOTE: YOU SHOULD CHECK FOR A FAILED EXTRACTION HERE
+
+		// If there is extraneous input, treat as a failure case
+		if (hasUnextractedInput()) {
+			ignoreLine(); // remove extraneous input
+			continue;
+		}
+
+		return x;
+	}
+
+}
+
+[[maybe_unused]] static double getDoubleV3(){
+	while (true) { // Loop until user enters a valid input
+		std::cout << "Enter a decimal number: ";
+		double x{};
+		std::cin >> x;
+
+		bool success { std::cin }; // Remember whether we had a successful extraction
+		std::cin.clear(); // Put us back in normal mode (in case we failed)
+		ignoreLine(); // Ignore any additional input on this line (regardless)
+
+		if (success) {
+			return x;
+		}
+	}
+}
+
 double getDouble(){
 	while (true) {
 		std::cout << "Enter a decimal number: ";
